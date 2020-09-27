@@ -279,6 +279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7baaf2440a32e54cad2bb5b3df0a482, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players:
+  - name: Cat
+    isAI: 0
+  - name: Rats
+    isAI: 1
 --- !u!4 &1690757489
 Transform:
   m_ObjectHideFlags: 0

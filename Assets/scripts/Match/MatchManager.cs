@@ -8,27 +8,40 @@ using UnityEngine;
 ///</summary>
 public class MatchManager : MonoBehaviour
 {
+    public static MatchManager instance {get; private set;}
     public Player[] players;
+    public float maxMoveTime;
 
     ///<summary>
     /// The nuber of rounds that passed since the start of the match.
     ///</summary>
     public int roundNumber {get; private set;}
-
     ///<summary>
     /// The index of the player who has the right to move.
     ///</suammary>
     public int turnPlayerIndex {get; private set;}
+    ///<summary>
+    /// A camera looking at the map from above.
+    ///</summary>
+    public Camera overviewCamera;
+    ///<summary>
+    /// The unit that is acting right now.
+    ///</summary>
+    public ControllableUnit activeUnit;
     // Start is called before the first frame update
     void Start()
     {
-        
+        instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void startMatch() {
+        turnPlayerIndex = 0;
     }
 
     ///<summary>
@@ -51,5 +64,11 @@ public class MatchManager : MonoBehaviour
             iterrationTimes++;
         } while (players[turnPlayerIndex].isEliminated);
         return true;
+    }
+
+    public void setOverviewCameraActive(bool isActive) {
+        if (overviewCamera != null) {
+            overviewCamera.gameObject.SetActive(isActive);
+        }
     }
 }

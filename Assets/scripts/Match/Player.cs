@@ -9,4 +9,5 @@ public class Player
     public bool isAI;
     [HideInInspector]
     public bool isEliminated;
+    public ControllableUnit[] units;
 }

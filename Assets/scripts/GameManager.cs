@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     public static GameManager instance {get; private set;}
 
     public GameMode gameMode;
+    public Vector2 lookSensitivity;
+    public float verticalLookMaximum;
+    public float verticalLookMinimum;
 
     // Start is called before the first frame update
     void Start()

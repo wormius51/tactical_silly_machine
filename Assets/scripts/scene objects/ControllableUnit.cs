@@ -26,6 +26,9 @@ public class ControllableUnit : MonoBehaviour
         MatchManager.instance.activeUnit = this;
         if (myCamera != null) {   
             myCamera.gameObject.SetActive(true);
+            // Lock and hide the mouse.
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
         MatchManager.instance.setOverviewCameraActive(myCamera == null);
     }
@@ -64,11 +67,12 @@ public class ControllableUnit : MonoBehaviour
     public void look(Vector2 input) {
         GameManager gm = GameManager.instance;
         Transform cameraTransform = myCamera.transform;
+        float y = input.y;
         // Check if the camera is getting out of the allowed range.
-        if ((input.y > 0) ? (cameraTransform.forward.y > gm.verticalLookMaximum) : (cameraTransform.forward.y < gm.verticalLookMinimum))
-            return;
+        if ((y > 0) ? (cameraTransform.forward.y > gm.verticalLookMaximum) : (cameraTransform.forward.y < gm.verticalLookMinimum))
+            y = 0;
         // Rotate the player and the camera.
         transform.rotation *= Quaternion.Euler(0, input.x * gm.lookSensitivity.x, 0);
-        cameraTransform.RotateAround(transform.position, transform.right ,-input.y * gm.lookSensitivity.y);
+        cameraTransform.RotateAround(transform.position, transform.right ,-y * gm.lookSensitivity.y);
     }
 }

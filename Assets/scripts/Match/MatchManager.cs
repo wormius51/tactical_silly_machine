@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 ///<summary>
 /// Holds the information about the players and the state of the match.
@@ -32,6 +33,8 @@ public class MatchManager : MonoBehaviour
     void Start()
     {
         instance = this;
+        // Just for testing.
+        players[0].units[0].focus();
     }
 
     // Update is called once per frame
@@ -69,6 +72,23 @@ public class MatchManager : MonoBehaviour
     public void setOverviewCameraActive(bool isActive) {
         if (overviewCamera != null) {
             overviewCamera.gameObject.SetActive(isActive);
+            if (isActive) {
+                // Release the mouse and show it.
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+        }
+    }
+
+    public void move(InputAction.CallbackContext context) {
+        if (activeUnit != null) {
+            activeUnit.move(context.ReadValue<Vector2>());
+        }
+    }
+
+    public void look(InputAction.CallbackContext context) {
+        if (activeUnit != null) {
+            activeUnit.look(context.ReadValue<Vector2>());
         }
     }
 }
